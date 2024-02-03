@@ -22,8 +22,13 @@ public class CategoryMysqlAdapter implements ICategoryPersistencePort {
 
     @Override
     public Page<CategoryResponseDto> getCategoryAll() {
-        Pageable pageable = PageRequest.of(0, 0); // SE DEBE CAMBIAR
+        Pageable pageable = PageRequest.of(0, 1); // SE DEBE CAMBIAR
         Page<CategoryEntity> categoryEntityPage = categoryRepository.findAll(pageable);
         return categoryEntityPage.map(categoryEntityMapper::toCategoryResponseDto);
+    }
+
+    @Override
+    public void deleteCategory(Long idCategory) {
+        categoryRepository.deleteById(idCategory);
     }
 }

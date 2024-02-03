@@ -84,8 +84,8 @@ public class ManagementRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PreAuthorize("hasAuthority('ADMINISTRATOR_ROLE')")
     @DeleteMapping("category/")
-    public ResponseEntity<Map<String, String>> deleteCategory(){
-        managementHandler.deleteCategory();
+    public ResponseEntity<Map<String, String>> deleteCategory(Long idCategory){
+        managementHandler.deleteCategory(idCategory);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.CATEGORY_DELETED_MESSAGE));
     }
@@ -95,7 +95,7 @@ public class ManagementRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "409", description = "Delete category fail",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @PreAuthorize("hasAuthority('ADMINISTRATOR_ROLE')")
+    @PreAuthorize("hasAnyAuthority('MEMBER_ROLE', 'ADMINISTRATOR_ROLE'")
     @GetMapping("category/")
     public Page<CategoryResponseDto> getCategoryAll(){
         return managementHandler.getCategoryAll();

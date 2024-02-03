@@ -11,8 +11,6 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @Getter
 public class PostRequestDto {
-    @NotBlank
-    private Long idUser;
     @NotBlank // Will be error ?
     private ArrayList<String> media;
     @NotBlank

@@ -40,12 +40,12 @@ public class MainSecurity {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/health").permitAll()
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/health", "/files/picture").permitAll()
                         .requestMatchers(HttpMethod.POST,"/management/post/").hasAuthority(Constants.ROLE_MEMBER)
                         .requestMatchers(HttpMethod.DELETE,"/management/post/").hasAuthority(Constants.ROLE_MEMBER)
                         .requestMatchers(HttpMethod.POST, "/management/category/").hasAuthority(Constants.ROLE_ADMINSITRATOR)
                         .requestMatchers(HttpMethod.DELETE, "/management/category/").hasAuthority(Constants.ROLE_ADMINSITRATOR)
-                        .requestMatchers(HttpMethod.GET, "/management/category/").hasAuthority(Constants.ROLE_ADMINSITRATOR)
+                        .requestMatchers(HttpMethod.GET, "/management/category/").hasAnyAuthority(Constants.ROLE_MEMBER, Constants.ROLE_ADMINSITRATOR)
                         .requestMatchers(HttpMethod.GET, "/management/home/").hasAnyAuthority(Constants.ROLE_MEMBER, Constants.ROLE_ADMINSITRATOR)
                         .requestMatchers(HttpMethod.GET,"/management/profile/posts/").hasAuthority(Constants.ROLE_MEMBER)
                         .anyRequest().authenticated()
@@ -54,4 +54,5 @@ public class MainSecurity {
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
 }

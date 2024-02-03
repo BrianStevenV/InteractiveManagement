@@ -15,7 +15,7 @@ public interface IManagementHandler {
 
 
     void createCategory(CategoryCreateRequestDto categoryCreateRequestDto);
-    void deleteCategory();
+    void deleteCategory(Long idCategory);
 
     Page<CategoryResponseDto> getCategoryAll();
 }

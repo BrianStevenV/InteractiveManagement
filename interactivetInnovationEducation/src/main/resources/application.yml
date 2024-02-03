@@ -12,6 +12,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 6MB
+      max-request-size: 6MB
+
 jwt:
   secret: ${KEYSECRET_SECURITY:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlJlZEVBbWVyaWNhIEJlVGVrIiwiaWF0IjoxNTE2MjM5MDIyfQ.S1jD88aavunG-gnes5L_hk-qC1w2ku5behPjhpkpQSo}
   expiration: ${EXPIRE_DAYS_SECURITY:3600000}

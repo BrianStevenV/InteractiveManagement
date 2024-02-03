@@ -47,8 +47,8 @@ public class ManagementHandlerImpl implements IManagementHandler {
     }
 
     @Override
-    public void deleteCategory() {
-
+    public void deleteCategory(Long idCategory) {
+        categoryServicePort.deleteCategory(idCategory);
     }
 
     @Override

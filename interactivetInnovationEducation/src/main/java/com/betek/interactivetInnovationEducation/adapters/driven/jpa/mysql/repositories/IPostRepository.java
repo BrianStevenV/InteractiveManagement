@@ -14,26 +14,41 @@ public interface IPostRepository extends JpaRepository<PostEntity, Long> {
 //    @Query(value = "SELECT * FROM post WHERE idCountry = :idCountry AND idCategory = :idCategory", nativeQuery = true) // BUSCAR ULTIMOS DIEZ
 //    Page<PostEntity> findByIdCountryAndIdCategory(@Param("idCountry") Long idCountry, @Param("idCountry") Long idCategory, Pageable pageable);
 
+//    @Query(value = "SELECT * FROM post " +
+//            "WHERE country = :idCountry " +
+//            "AND topic = :idCategory " +
+//            "ORDER BY created_at DESC " +
+//            "LIMIT 3",
+//            nativeQuery = true)
+//    Page<PostEntity> findByIdCountryAndIdCategory(@Param("idCountry") Long idCountry, @Param("idCategory") Long idCategory, Pageable pageable);
+
+
     @Query(value = "SELECT * FROM post " +
             "WHERE country = :idCountry " +
             "AND topic = :idCategory " +
-            "ORDER BY created_at DESC " +
-            "LIMIT 10",
+            "ORDER BY created_at DESC",
+            countQuery = "SELECT count(*) FROM post " +
+                    "WHERE country = :idCountry " +
+                    "AND topic = :idCategory ",
             nativeQuery = true)
-    Page<PostEntity> findByIdCountryAndIdCategory(@Param("idCountry") Long idCountry, @Param("idCategory") Long idCategory, Pageable pageable);
+    Page<PostEntity> findByIdCountryAndIdCategory(
+            @Param("idCountry") Long idCountry,
+            @Param("idCategory") Long idCategory,
+            Pageable pageable
+    );
 
 
     @Query(value = "SELECT * FROM post " +
             "WHERE country = :idCountry " +
             "ORDER BY created_at DESC " +
-            "LIMIT 10",
+            "LIMIT 3",
             nativeQuery = true)
     Page<PostEntity> findByIdCountry(@Param("idCountry") Long idCountry, Pageable pageable);
 
     @Query(value = "SELECT * FROM post " +
             "WHERE topic = :idCategory " +
             "ORDER BY created_at DESC " +
-            "LIMIT 10",
+            "LIMIT 3",
             nativeQuery = true)
     Page<PostEntity> findByIdCategory(@Param("idCategory") Long idCategory, Pageable pageable);
 

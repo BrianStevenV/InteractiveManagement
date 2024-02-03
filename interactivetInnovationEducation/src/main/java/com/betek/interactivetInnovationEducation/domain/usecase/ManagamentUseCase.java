@@ -23,6 +23,8 @@ public class ManagamentUseCase implements IManagementServicePort {
 
     @Override
     public void createPost(Post post) {
+        Long idUser = authenticationUserInfoServicePort.getIdUserFromToken();
+        post.setIdUser(idUser);
         post.setCreated_at(LocalDate.now());
         managementPersistencePort.createPost(post);
     }

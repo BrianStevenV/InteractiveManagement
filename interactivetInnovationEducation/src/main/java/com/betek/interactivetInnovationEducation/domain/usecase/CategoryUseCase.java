@@ -21,4 +21,9 @@ public class CategoryUseCase implements ICategoryServicePort {
     public Page<CategoryResponseDto> getCategoryAll() {
         return categoryPersistencePort.getCategoryAll();
     }
+
+    @Override
+    public void deleteCategory(Long idCategory) {
+        categoryPersistencePort.deleteCategory(idCategory);
+    }
 }

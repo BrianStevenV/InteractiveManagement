@@ -25,12 +25,20 @@ public class PostMysqlAdapter implements IManagementPersistencePort {
         managementRepository.deleteById(idPost);
     }
 
+//    @Override
+//    public Page<PostPaginationResponseDto> getHomeFromPagination(Long idCountry, Long idCategory) { // GET QUE ALIMENTA EL FRONTEND.
+//        Pageable pageable = PageRequest.of(0,10);
+//        Page<PostEntity> postEntityPage = managementRepository.findByIdCountryAndIdCategory(idCountry, idCategory, pageable);
+//        return postEntityPage.map(postEntityMapper::toPostPaginationResponseDto);
+//    }
+
     @Override
-    public Page<PostPaginationResponseDto> getHomeFromPagination(Long idCountry, Long idCategory) { // GET QUE ALIMENTA EL FRONTEND.
-        Pageable pageable = PageRequest.of(0,10);
-        Page<PostEntity> postEntityPage = managementRepository.findByIdCountryAndIdCategory(idCountry, idCategory, pageable);
-        return postEntityPage.map(postEntityMapper::toPostPaginationResponseDto);
+    public Page<PostPaginationResponseDto> getHomeFromPagination(Long idCountry, Long idCategory) {
+        Pageable pageable = PageRequest.of(0, 10);
+        return managementRepository.findByIdCountryAndIdCategory(idCountry, idCategory, pageable)
+                .map(postEntityMapper::toPostPaginationResponseDto);
     }
+
 
     @Override
     public Page<PostPaginationResponseDto> getPostFromProfile(Long idUser) { // EL USUARIO CUANDO MIRA SU CUENTA PUEDE VER SUS PROPIAS PUBLICACIONES, TODAS LAS QUE TIENE REGISTRADAS A SU
